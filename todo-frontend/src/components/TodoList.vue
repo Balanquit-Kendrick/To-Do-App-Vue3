@@ -8,10 +8,10 @@
                     <input
                         v-model="newTodo"
                         placeholder="Add a task..."
-                        class="min-w-full pl-10 p-2 border text-slate-300 bg-[#343A40] border-[#2E3238] rounded-md focus:outline focus:outline-slate-400"
+                        class="min-w-full pl-8 p-2 border text-slate-300 bg-[#343A40] border-[#2E3238] rounded-md focus:outline focus:outline-slate-400 raleway-medium"
                     />
                 </form>
-                <ul id="style-1" class="overflow-y-auto max-h-[450px] pr-2">
+                <ul id="style-1" class="overflow-y-auto max-h-[450px] min-h-[450px] pr-2">
                     <li v-for="todo in todos" :key="todo.id" class="flex items-center mb-2">
                         <div class="checkbox-wrapper-4 flex-grow">
                             <input
@@ -27,7 +27,7 @@
                                         <use xlink:href="#check-4"></use>
                                     </svg>
                                 </span>
-                                <span class="text-slate-300">{{ todo.title }}</span>
+                                <span class="text-slate-300 raleway-small">{{ todo.title }}</span>
                             </label>
                             <svg class="inline-svg">
                                 <symbol id="check-4" viewBox="0 0 12 10">
@@ -39,9 +39,9 @@
                             <button @click="toggleDropdown(todo.id)" class="text-white focus:outline-none">
                                 <SVGThreeDots/>
                             </button>
-                            <div v-if="dropdownOpen === todo.id" class="absolute right-0 w-40 mt-2 bg-[#343A40] rounded-md shadow-lg z-10">
+                            <div v-if="dropdownOpen === todo.id" class="absolute right-0 w-40 mt-2 bg-[#343A40] rounded-md shadow-lg z-10 raleway-medium">
                                 <ul class="text-gray-300">
-                                    <li @click="pinTodo(todo)" class="flex items-center px-4 py-2 hover:bg-[#3C424A] hover:rounded-t-md cursor-pointer">
+                                    <li @click="pinTodo(todo)" class="flex items-center px-4 py-2 hover:bg-[#3C424A] hover:rounded-t-md cursor-pointer ">
                                         <SVGPin />
                                         Pin on the top
                                     </li>
@@ -77,7 +77,8 @@ export default {
         return {
             todos: [],
             newTodo: '',
-            dropdownOpen: null 
+            dropdownOpen: null,
+            clickOutside: false,
         };
     },
 
@@ -135,17 +136,15 @@ export default {
             this.updateTodo(todo);
         },
         toggleDropdown(id) {
-            this.dropdownOpen = this.dropdownOpen === id ? null : id; // Toggle dropdown visibility
+            this.dropdownOpen = this.dropdownOpen === id ? null : id;
         },
         pinTodo(todo) {
-            // Implement pin functionality
             alert(`Pinned: ${todo.title}`);
-            this.dropdownOpen = null; // Close dropdown after action
+            this.dropdownOpen = null; 
         },
         addMemo(todo) {
-            // Implement memo functionality
             alert(`Add a memo to: ${todo.title}`);
-            this.dropdownOpen = null; // Close dropdown after action
+            this.dropdownOpen = null; 
         }
     },
     mounted() {
