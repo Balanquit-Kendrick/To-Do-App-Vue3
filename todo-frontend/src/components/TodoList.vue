@@ -12,51 +12,58 @@
                     />
                 </form>
                 <ul id="style-1" class="overflow-y-auto max-h-[450px] min-h-[450px] pr-2">
-                    <li v-for="todo in todos" :key="todo.id" class="flex items-center mb-2">
-                        <div class="checkbox-wrapper-4 flex-grow">
-                            <input
-                                class="inp-cbx"
-                                :id="'todo-' + todo.id"
-                                v-model="todo.completed"
-                                @change="toggleCompleted(todo)"
-                                type="checkbox"
-                            />
-                            <label class="cbx" :for="'todo-' + todo.id">
-                                <span class="min-w-[18px]">
-                                    <svg width="12px" height="10px">
-                                        <use xlink:href="#check-4"></use>
-                                    </svg>
-                                </span>
-                                <span class="text-slate-300 raleway-small">{{ todo.title }}</span>
-                            </label>
-                            <svg class="inline-svg">
-                                <symbol id="check-4" viewBox="0 0 12 10">
-                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                                </symbol>
-                            </svg>
-                        </div>
-                        <div class="relative mr-4">
-                            <button @click="toggleDropdown(todo.id)" class="text-white focus:outline-none">
-                                <SVGThreeDots/>
-                            </button>
-                            <div v-if="dropdownOpen === todo.id" class="absolute right-0 w-40 mt-2 bg-[#343A40] rounded-md shadow-lg z-10 raleway-medium">
-                                <ul class="text-gray-300">
-                                    <li @click="pinTodo(todo)" class="flex items-center px-4 py-2 hover:bg-[#3C424A] hover:rounded-t-md cursor-pointer ">
-                                        <SVGPin />
-                                        Pin on the top
-                                    </li>
-                                    <li @click="addMemo(todo)" class="flex items-center px-4 py-2 hover:bg-[#3C424A] cursor-pointer">
-                                        <SVGMemo />
-                                        Add a memo
-                                    </li>
-                                    <li @click="deleteTodo(todo.id)" class="flex items-center px-4 py-2 hover:bg-[#3C424A] hover:rounded-b-md text-red-500 cursor-pointer">
-                                        <SVGTrash />
-                                        Delete
-                                    </li>
-                                </ul>
+                    <div v-if="todos.length == 0" class="flex justify-center items-center min-h-[450px]">
+                        <p class="text-gray-400 items-center text-center justify-center">There's nothing to do <br>
+                        <i>Add a new task</i>
+                        </p>
+                    </div>
+                    <div v-else>
+                        <li v-for="todo in todos" :key="todo.id" class="flex items-center mb-2">
+                            <div class="checkbox-wrapper-4 flex-grow">
+                                <input
+                                    class="inp-cbx"
+                                    :id="'todo-' + todo.id"
+                                    v-model="todo.completed"
+                                    @change="toggleCompleted(todo)"
+                                    type="checkbox"
+                                />
+                                <label class="cbx" :for="'todo-' + todo.id">
+                                    <span class="min-w-[18px]">
+                                        <svg width="12px" height="10px">
+                                            <use xlink:href="#check-4"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="text-slate-300 raleway-small">{{ todo.title }}</span>
+                                </label>
+                                <svg class="inline-svg">
+                                    <symbol id="check-4" viewBox="0 0 12 10">
+                                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                    </symbol>
+                                </svg>
                             </div>
-                        </div>
-                    </li>
+                            <div class="relative mr-4">
+                                <button @click="toggleDropdown(todo.id)" class="text-white focus:outline-none">
+                                    <SVGThreeDots/>
+                                </button>
+                                <div v-if="dropdownOpen === todo.id" class="absolute right-0 w-40 mt-2 bg-[#343A40] rounded-md shadow-lg z-10 raleway-medium">
+                                    <ul class="text-gray-300">
+                                        <li @click="pinTodo(todo)" class="flex items-center px-4 py-2 hover:bg-[#3C424A] hover:rounded-t-md cursor-pointer ">
+                                            <SVGPin />
+                                            Pin on the top
+                                        </li>
+                                        <li @click="addMemo(todo)" class="flex items-center px-4 py-2 hover:bg-[#3C424A] cursor-pointer">
+                                            <SVGMemo />
+                                            Add a memo
+                                        </li>
+                                        <li @click="deleteTodo(todo.id)" class="flex items-center px-4 py-2 hover:bg-[#3C424A] hover:rounded-b-md text-red-500 cursor-pointer">
+                                            <SVGTrash />
+                                            Delete
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </div>
                 </ul>
             </div>
         </div>
