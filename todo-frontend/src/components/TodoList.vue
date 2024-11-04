@@ -47,6 +47,10 @@
                                 </button>
                                 <div v-if="dropdownOpen === todo.id" class="absolute right-0 w-40 mt-2 bg-[#343A40] rounded-md shadow-lg z-10 raleway-medium">
                                     <ul class="text-gray-300">
+                                        <li @click="" class="flex items-center px-4 py-2 hover:bg-[#3C424A] hover:rounded-t-md cursor-pointer ">
+                                            <SVGEdit />
+                                            Edit task
+                                        </li>
                                         <li @click="pinTodo(todo)" class="flex items-center px-4 py-2 hover:bg-[#3C424A] hover:rounded-t-md cursor-pointer ">
                                             <SVGPin />
                                             Pin on the top
@@ -78,6 +82,7 @@ import SVGMemo from '../assets/memo.svg'
 import SVGTrash from '../assets/trash.svg'
 import SVGAlign from '../assets/align-left.svg'
 import SVGThreeDots from '../assets/three-dots.svg'
+import SVGEdit from '../assets/edit.svg'
 
 export default {
     data() {
@@ -94,7 +99,8 @@ export default {
         SVGMemo,
         SVGTrash,
         SVGAlign,
-        SVGThreeDots
+        SVGThreeDots,
+        SVGEdit
     },
     methods: {
         async fetchTodos() {
