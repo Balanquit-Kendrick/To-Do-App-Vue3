@@ -47,7 +47,7 @@
                                 </button>
                                 <div v-if="dropdownOpen === todo.id" class="absolute right-0 w-40 mt-2 bg-[#343A40] rounded-md shadow-lg z-10 raleway-medium">
                                     <ul class="text-gray-300">
-                                        <li @click="" class="flex items-center px-4 py-2 hover:bg-[#3C424A] hover:rounded-t-md cursor-pointer ">
+                                        <li @click="openEditModal(todo)" class="flex items-center px-4 py-2 hover:bg-[#3C424A] hover:rounded-t-md cursor-pointer ">
                                             <SVGEdit />
                                             Edit task
                                         </li>
@@ -72,10 +72,19 @@
             </div>
         </div>
     </div>
+
+    <EditModal 
+    v-if="isEditModalOpen" 
+    :show="isEditModalOpen" 
+    :todo="currentTodo" 
+    @update-todo="updateTodo" 
+    @close="closeEditModal" 
+  />
 </template>
 
 
 <script>
+import EditModal from './EditModal.vue';
 import axios from 'axios';
 import SVGPin from '../assets/pin.svg'
 import SVGMemo from '../assets/memo.svg'
@@ -91,6 +100,8 @@ export default {
             newTodo: '',
             dropdownOpen: null,
             clickOutside: false,
+            isEditModalOpen: false,
+            currentTodo: null,
         };
     },
 
@@ -100,9 +111,18 @@ export default {
         SVGTrash,
         SVGAlign,
         SVGThreeDots,
-        SVGEdit
+        SVGEdit,
+        EditModal 
     },
     methods: {
+        openEditModal(todo) {
+            this.currentTodo = todo;
+            this.isEditModalOpen = true;
+        },
+        closeEditModal() {
+            this.isEditModalOpen = false;
+            this.currentTodo = null;
+        },
         async fetchTodos() {
             try {
                 const response = await axios.get('http://localhost:5000/todos');
@@ -127,12 +147,20 @@ export default {
                 console.error("Failed to add todo:", error);
             }
         },
-        async updateTodo(todo) {
+        async updateTodo(updatedTodo) {
+            
             try {
-                await axios.put(`http://localhost:5000/todos/${todo.id}`, {
-                    title: todo.title,
-                    completed: todo.completed
+                const response = await axios.put(`http://localhost:5000/todos/${updatedTodo.id}`, {
+                    title: updatedTodo.title,
+                    completed: updatedTodo.completed,
                 });
+                console.log('response', response);
+                
+                const index = this.todos.findIndex(todo => todo.id === updatedTodo.id);
+                if (index !== -1) {
+                    this.todos.splice(index, 1, updatedTodo);
+                }
+                    this.closeEditModal();
             } catch (error) {
                 console.error("Failed to update todo:", error);
             }

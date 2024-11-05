@@ -20,7 +20,6 @@ db.connect((err) => {
     console.log('MySQL connected...');
 });
 
-// Routes
 app.get('/todos', (req, res) => {
     db.query('SELECT * FROM todos', (err, results) => {
         if (err) throw err;
@@ -38,9 +37,12 @@ app.post('/todos', (req, res) => {
 
 app.put('/todos/:id', (req, res) => {
     const { id } = req.params;
-    const { completed } = req.body;
-    db.query('UPDATE todos SET completed = ? WHERE id = ?', [completed, id], (err) => {
-        if (err) throw err;
+    const { title, completed } = req.body;
+    db.query('UPDATE todos SET title = ?, completed = ? WHERE id = ?', [title, completed, id], (err) => {
+    if (err) {
+        console.error(err);
+        return res.status(500).send('Failed to update the todo');
+    }
         res.sendStatus(200);
     });
 });
