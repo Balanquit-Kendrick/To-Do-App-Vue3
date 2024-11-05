@@ -51,7 +51,7 @@
                                             <SVGEdit />
                                             Edit task
                                         </li>
-                                        <li @click="pinTodo(todo)" class="flex items-center px-4 py-2 hover:bg-[#3C424A] hover:rounded-t-md cursor-pointer ">
+                                        <li @click="pinTodo(todo)" class="flex items-center px-4 py-2 hover:bg-[#3C424A] cursor-pointer ">
                                             <SVGPin />
                                             Pin on the top
                                         </li>
