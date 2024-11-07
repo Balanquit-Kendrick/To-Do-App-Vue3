@@ -148,7 +148,6 @@ export default {
             }
         },
         async updateTodo(updatedTodo) {
-            
             try {
                 const response = await axios.put(`http://localhost:5000/todos/${updatedTodo.id}`, {
                     title: updatedTodo.title,
