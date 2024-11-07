@@ -8,6 +8,13 @@ body{
   background-color: rgb(233, 233, 233);
 }
 
+.raleway-small-slant {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: italic;
+  font-size:12px
+}
 .raleway-small {
   font-family: "Raleway", sans-serif;
   font-optical-sizing: auto;
