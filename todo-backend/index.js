@@ -37,8 +37,8 @@ app.post('/todos', (req, res) => {
 
 app.put('/todos/:id', (req, res) => {
     const { id } = req.params;
-    const { title, completed } = req.body;
-    db.query('UPDATE todos SET title = ?, completed = ? WHERE id = ?', [title, completed, id], (err) => {
+    const { title, completed, memo } = req.body;
+    db.query('UPDATE todos SET title = ?, completed = ?, memo = ? WHERE id = ?', [title, completed, memo, id], (err) => {
     if (err) {
         console.error(err);
         return res.status(500).send('Failed to update the todo');

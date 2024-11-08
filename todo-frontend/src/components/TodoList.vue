@@ -123,6 +123,8 @@ export default {
     },
     methods: {
         openEditModal(todo) {
+            console.log('todo', todo);
+            
             this.currentTodo = todo;
             this.isEditModalOpen = true;
         },
@@ -156,11 +158,11 @@ export default {
         },
         async updateTodo(updatedTodo) {
             try {
-                const response = await axios.put(`http://localhost:5000/todos/${updatedTodo.id}`, {
+                await axios.put(`http://localhost:5000/todos/${updatedTodo.id}`, {
                     title: updatedTodo.title,
                     completed: updatedTodo.completed,
+                    memo: updatedTodo.memo
                 });
-                console.log('response', response);
                 
                 const index = this.todos.findIndex(todo => todo.id === updatedTodo.id);
                 if (index !== -1) {

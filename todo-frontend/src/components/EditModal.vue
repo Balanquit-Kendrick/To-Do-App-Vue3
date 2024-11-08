@@ -1,6 +1,6 @@
 <template>
   <div v-if="show" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50 ">
-    <div class="bg-[#3C424A] rounded-lg shadow-lg p-6 w-1/3 ">
+    <div class="bg-[#3C424A] rounded-lg shadow-lg p-6 w-1/4 ">
       <h2 class="text-xl text-gray-300 font-bold raleway-large">Edit Task</h2>
       <form @submit.prevent="handleSubmit">
         <div class="mb-4">
@@ -10,7 +10,18 @@
             id="title"
             v-model="editedTitle"
             class="w-full p-2 border bg-[#343A40] text-gray-300 border-[#2E3238] rounded-md focus:outline focus:outline-slate-400 raleway-medium"
-            placeholder="Edit task title"
+            placeholder="Add Title"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label for="memo" class="block text-gray-400 raleway-medium my-1">Memo</label>
+          <input
+            type="text"
+            id="memo"
+            v-model="editedMemo"
+            class="w-full p-2 border bg-[#343A40] text-gray-300 border-[#2E3238] rounded-md focus:outline focus:outline-slate-400 raleway-medium"
+            placeholder="Add Memo"
             required
           />
         </div>
@@ -37,12 +48,13 @@ export default {
   },
   data() {
     return {
-      editedTitle: this.todo.title
+      editedTitle: this.todo.title,
+      editedMemo: this.todo.memo
     };
   },
   methods: {
     handleSubmit() {
-      this.$emit('update-todo', { ...this.todo, title: this.editedTitle });
+      this.$emit('update-todo', { ...this.todo, title: this.editedTitle , memo: this.editedMemo });
     }
   },
 };

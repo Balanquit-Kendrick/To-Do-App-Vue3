@@ -73,9 +73,9 @@ body{
   .checkbox-wrapper-4 .cbx:not(:last-child) {
     margin-right: 6px;
   }
-  .checkbox-wrapper-4 .cbx:hover {
+  /* .checkbox-wrapper-4 .cbx:hover {
     background: rgba(148, 148, 148, 0.06);
-  }
+  } */
   .checkbox-wrapper-4 .cbx span {
     float: left;
     vertical-align: middle;
