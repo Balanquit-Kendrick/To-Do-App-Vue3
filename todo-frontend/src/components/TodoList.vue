@@ -45,10 +45,10 @@
                                 </div>
                                 
                                 <div class="relative mr-4">
-                                    <button @click="toggleDropdown(todo.id)" class="text-white focus:outline-none">
+                                    <button @click="toggleDropdown(todo.id)" class="text-white focus:outline-none dropdown-menu">
                                         <SVGThreeDots/>
                                     </button>
-                                    <div v-if="dropdownOpen === todo.id" class="absolute right-0 w-40 mt-2 bg-[#343A40] rounded-md shadow-lg z-10 raleway-medium">
+                                    <div v-if="dropdownOpen === todo.id" class="absolute right-0 w-40 mt-2 bg-[#343A40] rounded-md shadow-lg z-10 raleway-medium dropdown-menu">
                                         <ul class="text-gray-300">
                                             <li @click="openEditModal(todo)" class="flex items-center px-4 py-2 hover:bg-[#3C424A] hover:rounded-t-md cursor-pointer ">
                                                 <SVGEdit />
@@ -58,10 +58,10 @@
                                                 <SVGPin />
                                                 Pin on the top
                                             </li>
-                                            <li @click="addMemo(todo)" class="flex items-center px-4 py-2 hover:bg-[#3C424A] cursor-pointer">
+                                            <!-- <li @click="addMemo(todo)" class="flex items-center px-4 py-2 hover:bg-[#3C424A] cursor-pointer">
                                                 <SVGMemo />
                                                 Add a memo
-                                            </li>
+                                            </li> -->
                                             <li @click="deleteTodo(todo.id)" class="flex items-center px-4 py-2 hover:bg-[#3C424A] hover:rounded-b-md text-red-500 cursor-pointer">
                                                 <SVGTrash />
                                                 Delete
@@ -123,8 +123,6 @@ export default {
     },
     methods: {
         openEditModal(todo) {
-            console.log('todo', todo);
-            
             this.currentTodo = todo;
             this.isEditModalOpen = true;
         },
@@ -181,6 +179,14 @@ export default {
                 console.error("Failed to delete todo:", error);
             }
         },
+        handleClickOutside(event){
+            if (this.dropdownOpen !== null) {
+                const isDropdownMenu = event.target.closest('.dropdown-menu');
+                if (isDropdownMenu == null) {
+                this.dropdownOpen = null;
+                }
+            }
+        },
         toggleCompleted(todo) {
             this.updateTodo(todo);
         },
@@ -196,9 +202,14 @@ export default {
             this.dropdownOpen = null; 
         }
     },
+    
     mounted() {
-        this.fetchTodos();
-    }
+      this.fetchTodos();
+      document.addEventListener('click', this.handleClickOutside);
+    },
+    beforeUnmount() {
+      document.removeEventListener('click', this.handleClickOutside);
+    },
 };
 </script>
 

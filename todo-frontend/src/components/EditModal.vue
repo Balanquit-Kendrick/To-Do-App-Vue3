@@ -27,7 +27,7 @@
         </div>
         <div class="flex justify-end">
           <button type="button" @click="$emit('close')" class="mr-2 px-4 py-2 bg-gray-400 rounded raleway-medium">Cancel</button>
-          <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded raleway-medium">Save</button>
+          <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded raleway-medium">Save</button>
         </div>
       </form>
     </div>
